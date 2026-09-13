@@ -1,0 +1,2 @@
+[2026-05-24 00:20:03] IP: ::1 | Evento: visita | Info: El usuario ingresó a la página de inicio
+[2026-05-24 00:20:19] IP: ::1 | Evento: visita | Info: El usuario ingresó a la página de inicio

